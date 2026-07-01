@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduPinas – Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="auth.js"></script>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-icon">📚</span>
+      <span class="logo-text">EduPinas</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item active">
+        <span class="nav-icon">🏠</span><span>Dashboard</span>
+      </a>
+      <a href="subjects.html" class="nav-item">
+        <span class="nav-icon">📖</span><span>My Subjects</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">📝</span><span>Quizzes</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">📊</span><span>Progress</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">🔖</span><span>Saved Lessons</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">⚙️</span><span>Settings</span>
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="index.html" class="nav-item logout" onclick="event.preventDefault(); AUTH.logout()">
+        <span class="nav-icon">🚪</span><span>Log Out</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-wrap">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu">&#9776;</button>
+      <div class="topbar-search">
+        <input type="text" placeholder="Search lessons, subjects..." />
+        <span class="search-icon">🔍</span>
+      </div>
+      <div class="topbar-right">
+        <div class="notif-btn" title="Notifications">🔔</div>
+        <div class="avatar" id="userAvatar" title="My Profile">JD</div>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <main class="content">
+
+      <!-- Welcome banner -->
+      <section class="welcome-banner">
+        <div class="welcome-text">
+          <p class="welcome-small">Good morning 👋</p>
+          <h1 id="welcomeName">Welcome back!</h1>
+          <p class="welcome-sub">You have 3 pending lessons today. Keep going!</p>
+          <a href="subjects.html" class="btn-primary">Continue Learning →</a>
+        </div>
+        <div class="welcome-art">📚</div>
+      </section>
+
+      <!-- Stats row -->
+      <section class="stats-row">
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#e8f4ec">📖</div>
+          <div>
+            <div class="stat-num">21</div>
+            <div class="stat-label">Enrolled Subjects</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#fef3e2">🎬</div>
+          <div>
+            <div class="stat-num">34</div>
+            <div class="stat-label">Lessons Completed</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#eaf0fd">🏆</div>
+          <div>
+            <div class="stat-num">72%</div>
+            <div class="stat-label">Overall Progress</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background:#fdeaea">🔥</div>
+          <div>
+            <div class="stat-num">7</div>
+            <div class="stat-label">Day Streak</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Continue where you left off -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2>Continue Learning</h2>
+          <a href="subjects.html" class="see-all">See all subjects →</a>
+        </div>
+        <div class="cards-row" id="continueCards"></div>
+      </section>
+
+      <!-- Subject categories -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2>Browse by Strand</h2>
+        </div>
+        <div class="strand-row">
+          <div class="strand-card" onclick="location.href='subjects.html?strand=core'" style="background:#2d5a45">
+            <div class="strand-emoji">📚</div>
+            <div class="strand-name">Core Subjects</div>
+            <div class="strand-count">6 subjects</div>
+          </div>
+          <div class="strand-card" onclick="location.href='subjects.html?strand=stem'" style="background:#1a4a7a">
+            <div class="strand-emoji">🔬</div>
+            <div class="strand-name">STEM</div>
+            <div class="strand-count">5 subjects</div>
+          </div>
+          <div class="strand-card" onclick="location.href='subjects.html?strand=humss'" style="background:#7a3a1a">
+            <div class="strand-emoji">🎭</div>
+            <div class="strand-name">HUMSS</div>
+            <div class="strand-count">4 subjects</div>
+          </div>
+          <div class="strand-card" onclick="location.href='subjects.html?strand=abm'" style="background:#4a1a7a">
+            <div class="strand-emoji">💼</div>
+            <div class="strand-name">ABM</div>
+            <div class="strand-count">4 subjects</div>
+          </div>
+          <div class="strand-card" onclick="location.href='subjects.html?strand=tvl'" style="background:#7a5a1a">
+            <div class="strand-emoji">🔧</div>
+            <div class="strand-name">TVL</div>
+            <div class="strand-count">2 subjects</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent activity -->
+      <section class="section-block">
+        <div class="section-header">
+          <h2>Recent Activity</h2>
+        </div>
+        <div class="activity-list" id="activityList"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="lessons.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

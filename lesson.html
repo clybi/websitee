@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduPinas – Lesson</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="auth.js"></script>
+</head>
+<body>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-icon">📚</span>
+      <span class="logo-text">EduPinas</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="nav-icon">🏠</span><span>Dashboard</span>
+      </a>
+      <a href="subjects.html" class="nav-item active">
+        <span class="nav-icon">📖</span><span>My Subjects</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">📝</span><span>Quizzes</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">📊</span><span>Progress</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">🔖</span><span>Saved Lessons</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">⚙️</span><span>Settings</span>
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="index.html" class="nav-item logout" onclick="event.preventDefault(); AUTH.logout()">
+        <span class="nav-icon">🚪</span><span>Log Out</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu">&#9776;</button>
+      <div class="topbar-search">
+        <input type="text" placeholder="Search lessons..." />
+        <span class="search-icon">🔍</span>
+      </div>
+      <div class="topbar-right">
+        <div class="notif-btn">🔔</div>
+        <div class="avatar">JD</div>
+      </div>
+    </header>
+
+    <main class="content lesson-layout">
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb" id="breadcrumb"></div>
+
+      <div class="lesson-grid">
+
+        <!-- Left: video + details -->
+        <div class="lesson-main">
+          <!-- Video card — opens YouTube directly, no embed errors -->
+          <div class="video-card" id="videoCard" onclick="openVideo()">
+            <img class="video-thumb" id="videoThumb" src="" alt="Lesson thumbnail" />
+            <div class="video-overlay">
+              <div class="play-btn">
+                <svg viewBox="0 0 68 48" width="68" height="48">
+                  <path fill="#ff0000" d="M66.5 7.8a8.55 8.55 0 0 0-6-6C55.9.8 34 .8 34 .8S12.1.8 7.5 1.8a8.55 8.55 0 0 0-6 6C.5 12.4.5 24 .5 24s0 11.6 1 16.2a8.55 8.55 0 0 0 6 6C12.1 47.2 34 47.2 34 47.2s21.9 0 26.5-1a8.55 8.55 0 0 0 6-6c1-4.6 1-16.2 1-16.2s0-11.6-1-16.2z"/>
+                  <path fill="#fff" d="M27 33.5l18-9.5-18-9.5z"/>
+                </svg>
+              </div>
+              <div class="video-card-info">
+                <p class="vc-title" id="vcTitle"></p>
+                <p class="vc-sub">Click to watch on YouTube</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="lesson-info">
+            <h1 class="lesson-title" id="lessonTitle">Loading...</h1>
+            <div class="lesson-meta" id="lessonMeta"></div>
+            <div class="lesson-actions">
+              <button class="btn-secondary" id="btnSave" onclick="toggleSave()">🔖 Save Lesson</button>
+              <button class="btn-secondary" onclick="markDone()">✅ Mark as Done</button>
+              <a class="btn-secondary" id="btnYouTube" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;text-decoration:none;">
+                ▶ Open in YouTube
+              </a>
+            </div>
+            <div class="lesson-desc" id="lessonDesc"></div>
+
+            <!-- Key concepts -->
+            <div class="lesson-section" id="keyConceptsSection">
+              <h3>Key Concepts</h3>
+              <ul class="concepts-list" id="conceptsList"></ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: lesson list -->
+        <div class="lesson-sidebar">
+          <div class="ls-header">
+            <h3 id="subjectTitle">Lessons</h3>
+            <div class="ls-progress">
+              <div class="ls-progress-bar">
+                <div class="ls-progress-fill" id="progressFill"></div>
+              </div>
+              <span class="ls-progress-label" id="progressLabel"></span>
+            </div>
+          </div>
+
+          <div class="lesson-list" id="lessonList"></div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="lessons.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

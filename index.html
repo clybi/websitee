@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduPinas – Create Account</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background-color: #e8e8e0;
+      font-family: 'Georgia', serif;
+    }
+
+    .container {
+      display: flex; width: 860px; min-height: 520px;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    /* Left panel */
+    .left-panel {
+      background-color: #2d5a45; width: 42%;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 40px 36px; border-radius: 16px;
+    }
+    .left-panel h1 { color: #fff; font-size: 2.4rem; font-weight: 700; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 12px; }
+    .left-panel p  { color: #c8d8cf; font-size: 0.95rem; line-height: 1.5; }
+
+    /* Right panel */
+    .right-panel {
+      background-color: #f0ede6; width: 58%;
+      padding: 40px 48px 36px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .right-panel h2 { font-size: 2rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+
+    .login-hint { font-size: 0.85rem; color: #555; margin-bottom: 20px; font-family: Arial, sans-serif; }
+    .login-hint a { color: #1a73e8; text-decoration: underline; cursor: pointer; }
+
+    /* Inputs */
+    .name-row { display: flex; gap: 12px; margin-bottom: 10px; }
+    .name-row input { flex: 1; }
+
+    .field { margin-bottom: 10px; }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%; padding: 12px 14px;
+      background-color: #dedad2; border: 1.5px solid #c8c4bc;
+      border-radius: 6px; font-size: 0.9rem; color: #333;
+      font-family: Arial, sans-serif; outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: #2d5a45; }
+    input::placeholder { color: #888; }
+    input.input-error { border-color: #c0392b !important; }
+
+    /* Password wrapper */
+    .password-wrapper { position: relative; }
+    .password-wrapper input { padding-right: 44px; }
+    .toggle-password {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: #666;
+      display: flex; align-items: center; padding: 0;
+    }
+    .toggle-password svg { width: 20px; height: 20px; }
+
+    /* Error messages */
+    .field-error {
+      font-size: 0.76rem; color: #c0392b;
+      font-family: Arial, sans-serif;
+      margin-top: 4px; display: none;
+    }
+    .field-error.show { display: block; }
+
+    /* Alert banner */
+    .alert {
+      padding: 10px 14px; border-radius: 6px;
+      font-size: 0.83rem; font-family: Arial, sans-serif;
+      margin-bottom: 12px; display: none;
+    }
+    .alert.show { display: block; }
+    .alert-error   { background: #fdecea; color: #c0392b; border: 1px solid #f5b7b1; }
+    .alert-success { background: #eafaf1; color: #1e8449; border: 1px solid #a9dfbf; }
+
+    /* Terms */
+    .terms-row {
+      display: flex; align-items: flex-start; gap: 8px;
+      margin-bottom: 16px; font-size: 0.83rem; color: #444;
+      font-family: Arial, sans-serif;
+    }
+    .terms-row input[type="checkbox"] { width: 15px; height: 15px; margin-top: 2px; accent-color: #2d5a45; cursor: pointer; flex-shrink: 0; }
+    .terms-row a { color: #1a73e8; text-decoration: underline; cursor: pointer; }
+
+    /* Buttons */
+    .btn-create {
+      width: 100%; padding: 13px;
+      background-color: #2d5a45; border: none; border-radius: 6px;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;
+      color: #fff; cursor: pointer; font-family: Arial, sans-serif;
+      transition: background-color 0.2s; margin-bottom: 16px;
+    }
+    .btn-create:hover   { background-color: #245040; }
+    .btn-create:disabled { background-color: #a0b8b0; cursor: not-allowed; }
+
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 14px; font-size: 0.82rem; color: #888;
+      font-family: Arial, sans-serif;
+    }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background-color: #c8c4bc; }
+
+    .social-row { display: flex; gap: 12px; }
+    .btn-social {
+      flex: 1; padding: 10px 14px;
+      background-color: #f0ede6; border: 1px solid #c8c4bc; border-radius: 6px;
+      font-size: 0.88rem; font-weight: 600; color: #1a1a1a; cursor: pointer;
+      font-family: Arial, sans-serif;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: background-color 0.2s;
+    }
+    .btn-social:hover { background-color: #e0ddd6; }
+    .google-icon svg { width: 18px; height: 18px; }
+
+    @media (max-width: 640px) {
+      .container { flex-direction: column; width: 95vw; min-height: unset; border-radius: 12px; }
+      .left-panel { width: 100%; padding: 28px; border-radius: 0; }
+      .left-panel h1 { font-size: 1.8rem; }
+      .right-panel { width: 100%; padding: 28px; }
+      .name-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Left -->
+    <div class="left-panel">
+      <h1>basta website.</h1>
+      <p>una product bago paper. sanaol baliw</p>
+    </div>
+
+    <!-- Right -->
+    <div class="right-panel">
+      <h2>Create an account</h2>
+      <p class="login-hint">Already have an account? <a href="login.html">Log in</a></p>
+
+      <!-- Alert banner -->
+      <div class="alert alert-error" id="alertBox"></div>
+
+      <form id="signupForm" novalidate>
+
+        <!-- Name -->
+        <div class="name-row">
+          <div style="flex:1">
+            <input type="text" id="firstName" placeholder="First Name" autocomplete="given-name" />
+            <div class="field-error" id="firstNameErr">First name is required.</div>
+          </div>
+          <div style="flex:1">
+            <input type="text" id="lastName" placeholder="Last Name" autocomplete="family-name" />
+            <div class="field-error" id="lastNameErr">Last name is required.</div>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+          <input type="email" id="email" placeholder="Email" autocomplete="email" />
+          <div class="field-error" id="emailErr">Please enter a valid email.</div>
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+          <div class="password-wrapper">
+            <input type="password" id="passwordInput" placeholder="Enter your password (min. 6 chars)" autocomplete="new-password" />
+            <button type="button" class="toggle-password" onclick="togglePassword('passwordInput','eyeIcon')" aria-label="Toggle password visibility">
+              <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="field-error" id="passwordErr">Password must be at least 6 characters.</div>
+        </div>
+
+        <!-- Terms -->
+        <label class="terms-row">
+          <input type="checkbox" id="termsCheck" />
+          I agree to the <a href="#">Terms and Conditions</a>
+        </label>
+        <div class="field-error" id="termsErr" style="margin-top:-10px;margin-bottom:10px;">You must agree to the Terms and Conditions.</div>
+
+        <button type="submit" class="btn-create" id="submitBtn">CREATE ACCOUNT</button>
+      </form>
+
+      <div class="divider">or sign up with</div>
+      <div class="social-row">
+        <button class="btn-social" type="button" onclick="socialAuth()">
+          <span style="font-size:1.1rem">&#xF8FF;</span> Apple
+        </button>
+        <button class="btn-social" type="button" onclick="socialAuth()">
+          <span class="google-icon">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path fill="#4285F4" d="M46.145 24.504c0-1.6-.144-3.14-.413-4.617H24v8.736h12.434c-.536 2.888-2.166 5.335-4.614 6.975v5.796h7.47c4.373-4.027 6.855-9.956 6.855-16.89z"/>
+              <path fill="#34A853" d="M24 47.5c6.285 0 11.56-2.083 15.413-5.647l-7.47-5.796c-2.083 1.396-4.748 2.222-7.943 2.222-6.108 0-11.283-4.126-13.13-9.67H3.12v5.988C6.956 42.516 14.884 47.5 24 47.5z"/>
+              <path fill="#FBBC05" d="M10.87 28.609A14.865 14.865 0 0 1 10.025 24c0-1.604.276-3.163.845-4.609V13.403H3.12A23.504 23.504 0 0 0 .5 24c0 3.79.91 7.375 2.62 10.597l7.75-5.988z"/>
+              <path fill="#EA4335" d="M24 9.721c3.44 0 6.526 1.183 8.956 3.508l6.715-6.715C35.556 2.584 30.281.5 24 .5 14.884.5 6.956 5.484 3.12 13.403l7.75 5.988C12.717 13.847 17.892 9.721 24 9.721z"/>
+            </svg>
+          </span>
+          Google
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    // Redirect if already logged in
+    AUTH.redirectIfLoggedIn();
+
+    function togglePassword(inputId, iconId) {
+      const input = document.getElementById(inputId);
+      const icon  = document.getElementById(iconId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.innerHTML = `
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>`;
+      } else {
+        input.type = 'password';
+        icon.innerHTML = `
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>`;
+      }
+    }
+
+    function showErr(id, show) {
+      document.getElementById(id).classList.toggle('show', show);
+    }
+    function markField(id, hasError) {
+      document.getElementById(id).classList.toggle('input-error', hasError);
+    }
+    function clearErrors() {
+      ['firstName','lastName','email','passwordInput'].forEach(id => markField(id, false));
+      ['firstNameErr','lastNameErr','emailErr','passwordErr','termsErr'].forEach(id => showErr(id, false));
+      const alert = document.getElementById('alertBox');
+      alert.classList.remove('show','alert-error','alert-success');
+    }
+
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearErrors();
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const lastName  = document.getElementById('lastName').value.trim();
+      const email     = document.getElementById('email').value.trim();
+      const password  = document.getElementById('passwordInput').value;
+      const terms     = document.getElementById('termsCheck').checked;
+
+      let hasError = false;
+
+      if (!firstName) { showErr('firstNameErr', true); markField('firstName', true); hasError = true; }
+      if (!lastName)  { showErr('lastNameErr',  true); markField('lastName',  true); hasError = true; }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !emailRegex.test(email)) {
+        showErr('emailErr', true); markField('email', true); hasError = true;
+      }
+
+      if (password.length < 6) {
+        showErr('passwordErr', true); markField('passwordInput', true); hasError = true;
+      }
+
+      if (!terms) { showErr('termsErr', true); hasError = true; }
+
+      if (hasError) return;
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Creating account...';
+
+      const result = AUTH.register({ firstName, lastName, email, password });
+
+      if (!result.ok) {
+        const alertBox = document.getElementById('alertBox');
+        alertBox.textContent = result.error;
+        alertBox.classList.add('show', 'alert-error');
+        btn.disabled = false;
+        btn.textContent = 'CREATE ACCOUNT';
+        return;
+      }
+
+      // Success — small delay for feel, then redirect
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 300);
+    });
+
+    function socialAuth() {
+      alert('Social login requires a backend integration. Use email/password for now.');
+    }
+  </script>
+</body>
+</html>

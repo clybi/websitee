@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduPinas – Log In</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background-color: #e8e8e0; font-family: 'Georgia', serif;
+    }
+
+    .container {
+      display: flex; width: 860px; min-height: 480px;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    .left-panel {
+      background-color: #2d5a45; width: 42%;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 40px 36px; border-radius: 16px;
+    }
+    .left-panel h1 { color: #fff; font-size: 2.4rem; font-weight: 700; line-height: 1.15; margin-bottom: 12px; }
+    .left-panel p  { color: #c8d8cf; font-size: 0.95rem; line-height: 1.5; }
+
+    .right-panel {
+      background-color: #f0ede6; width: 58%;
+      padding: 48px 48px 44px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .right-panel h2 { font-size: 2rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+
+    .hint { font-size: 0.85rem; color: #555; margin-bottom: 20px; font-family: Arial, sans-serif; }
+    .hint a { color: #1a73e8; text-decoration: underline; cursor: pointer; }
+
+    .field { margin-bottom: 10px; }
+
+    input[type="email"],
+    input[type="password"],
+    input[type="text"] {
+      width: 100%; padding: 12px 14px;
+      background-color: #dedad2; border: 1.5px solid #c8c4bc;
+      border-radius: 6px; font-size: 0.9rem; color: #333;
+      font-family: Arial, sans-serif; outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus { border-color: #2d5a45; }
+    input::placeholder { color: #888; }
+    input.input-error { border-color: #c0392b !important; }
+
+    .password-wrapper { position: relative; }
+    .password-wrapper input { padding-right: 44px; }
+    .toggle-password {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: #666;
+      display: flex; align-items: center; padding: 0;
+    }
+    .toggle-password svg { width: 20px; height: 20px; }
+
+    .field-error {
+      font-size: 0.76rem; color: #c0392b;
+      font-family: Arial, sans-serif; margin-top: 4px; display: none;
+    }
+    .field-error.show { display: block; }
+
+    .alert {
+      padding: 10px 14px; border-radius: 6px;
+      font-size: 0.83rem; font-family: Arial, sans-serif;
+      margin-bottom: 14px; display: none;
+    }
+    .alert.show { display: block; }
+    .alert-error   { background: #fdecea; color: #c0392b; border: 1px solid #f5b7b1; }
+    .alert-success { background: #eafaf1; color: #1e8449; border: 1px solid #a9dfbf; }
+
+    .forgot { text-align: right; font-size: 0.8rem; font-family: Arial, sans-serif; margin-bottom: 16px; }
+    .forgot a { color: #1a73e8; text-decoration: underline; cursor: pointer; }
+
+    .btn-login {
+      width: 100%; padding: 13px;
+      background-color: #2d5a45; border: none; border-radius: 6px;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 1px;
+      color: #fff; cursor: pointer; font-family: Arial, sans-serif;
+      transition: background-color 0.2s; margin-bottom: 16px;
+    }
+    .btn-login:hover    { background-color: #245040; }
+    .btn-login:disabled { background-color: #a0b8b0; cursor: not-allowed; }
+
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 14px; font-size: 0.82rem; color: #888;
+      font-family: Arial, sans-serif;
+    }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background-color: #c8c4bc; }
+
+    .social-row { display: flex; gap: 12px; }
+    .btn-social {
+      flex: 1; padding: 10px 14px;
+      background-color: #f0ede6; border: 1px solid #c8c4bc; border-radius: 6px;
+      font-size: 0.88rem; font-weight: 600; color: #1a1a1a; cursor: pointer;
+      font-family: Arial, sans-serif;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: background-color 0.2s;
+    }
+    .btn-social:hover { background-color: #e0ddd6; }
+
+    @media (max-width: 640px) {
+      .container { flex-direction: column; width: 95vw; border-radius: 12px; }
+      .left-panel { width: 100%; padding: 28px; border-radius: 0; }
+      .left-panel h1 { font-size: 1.8rem; }
+      .right-panel { width: 100%; padding: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Left -->
+    <div class="left-panel">
+      <h1>basta website.</h1>
+      <p>una product bago paper. sanaol baliw</p>
+    </div>
+
+    <!-- Right -->
+    <div class="right-panel">
+      <h2>Log in</h2>
+      <p class="hint">Don't have an account? <a href="index.html">Sign up</a></p>
+
+      <div class="alert alert-error" id="alertBox"></div>
+
+      <form id="loginForm" novalidate>
+
+        <div class="field">
+          <input type="email" id="emailInput" placeholder="Email" autocomplete="email" />
+          <div class="field-error" id="emailErr">Please enter a valid email.</div>
+        </div>
+
+        <div class="field">
+          <div class="password-wrapper">
+            <input type="password" id="pwInput" placeholder="Enter your password" autocomplete="current-password" />
+            <button type="button" class="toggle-password" onclick="togglePassword()" aria-label="Toggle password">
+              <svg id="eyeIc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="field-error" id="pwErr">Password is required.</div>
+        </div>
+
+        <div class="forgot"><a href="#" onclick="forgotPassword()">Forgot password?</a></div>
+
+        <button type="submit" class="btn-login" id="loginBtn">LOG IN</button>
+      </form>
+
+      <div class="divider">or log in with</div>
+      <div class="social-row">
+        <button class="btn-social" type="button" onclick="socialAuth()">
+          <span style="font-size:1.1rem">&#xF8FF;</span> Apple
+        </button>
+        <button class="btn-social" type="button" onclick="socialAuth()">
+          <svg viewBox="0 0 48 48" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#4285F4" d="M46.145 24.504c0-1.6-.144-3.14-.413-4.617H24v8.736h12.434c-.536 2.888-2.166 5.335-4.614 6.975v5.796h7.47c4.373-4.027 6.855-9.956 6.855-16.89z"/>
+            <path fill="#34A853" d="M24 47.5c6.285 0 11.56-2.083 15.413-5.647l-7.47-5.796c-2.083 1.396-4.748 2.222-7.943 2.222-6.108 0-11.283-4.126-13.13-9.67H3.12v5.988C6.956 42.516 14.884 47.5 24 47.5z"/>
+            <path fill="#FBBC05" d="M10.87 28.609A14.865 14.865 0 0 1 10.025 24c0-1.604.276-3.163.845-4.609V13.403H3.12A23.504 23.504 0 0 0 .5 24c0 3.79.91 7.375 2.62 10.597l7.75-5.988z"/>
+            <path fill="#EA4335" d="M24 9.721c3.44 0 6.526 1.183 8.956 3.508l6.715-6.715C35.556 2.584 30.281.5 24 .5 14.884.5 6.956 5.484 3.12 13.403l7.75 5.988C12.717 13.847 17.892 9.721 24 9.721z"/>
+          </svg>
+          Google
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    // Redirect if already logged in
+    AUTH.redirectIfLoggedIn();
+
+    function togglePassword() {
+      const i  = document.getElementById('pwInput');
+      const ic = document.getElementById('eyeIc');
+      if (i.type === 'password') {
+        i.type = 'text';
+        ic.innerHTML = `
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>`;
+      } else {
+        i.type = 'password';
+        ic.innerHTML = `
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>`;
+      }
+    }
+
+    function clearErrors() {
+      ['emailInput', 'pwInput'].forEach(id => document.getElementById(id).classList.remove('input-error'));
+      ['emailErr', 'pwErr'].forEach(id => document.getElementById(id).classList.remove('show'));
+      const a = document.getElementById('alertBox');
+      a.classList.remove('show', 'alert-error', 'alert-success');
+      a.textContent = '';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearErrors();
+
+      const email    = document.getElementById('emailInput').value.trim();
+      const password = document.getElementById('pwInput').value;
+      let hasError   = false;
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email || !emailRegex.test(email)) {
+        document.getElementById('emailErr').classList.add('show');
+        document.getElementById('emailInput').classList.add('input-error');
+        hasError = true;
+      }
+
+      if (!password) {
+        document.getElementById('pwErr').classList.add('show');
+        document.getElementById('pwInput').classList.add('input-error');
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true;
+      btn.textContent = 'Logging in...';
+
+      const result = AUTH.login({ email, password });
+
+      if (!result.ok) {
+        const alertBox = document.getElementById('alertBox');
+        alertBox.textContent = result.error;
+        alertBox.classList.add('show', 'alert-error');
+
+        // Highlight the relevant field
+        if (result.error.includes('email')) {
+          document.getElementById('emailInput').classList.add('input-error');
+        } else {
+          document.getElementById('pwInput').classList.add('input-error');
+        }
+
+        btn.disabled = false;
+        btn.textContent = 'LOG IN';
+        return;
+      }
+
+      btn.textContent = 'Welcome back! ✓';
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 400);
+    });
+
+    function forgotPassword() {
+      const email = document.getElementById('emailInput').value.trim();
+      if (email) {
+        alert(`Password reset instructions would be sent to: ${email}\n\n(Email service not connected in this demo.)`);
+      } else {
+        alert('Please enter your email address first, then click "Forgot password?"');
+        document.getElementById('emailInput').focus();
+      }
+    }
+
+    function socialAuth() {
+      alert('Social login requires a backend integration. Use email/password for now.');
+    }
+  </script>
+</body>
+</html>

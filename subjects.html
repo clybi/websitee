@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduPinas – My Subjects</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="auth.js"></script>
+</head>
+<body>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <span class="logo-icon">📚</span>
+      <span class="logo-text">EduPinas</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="dashboard.html" class="nav-item">
+        <span class="nav-icon">🏠</span><span>Dashboard</span>
+      </a>
+      <a href="subjects.html" class="nav-item active">
+        <span class="nav-icon">📖</span><span>My Subjects</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">📝</span><span>Quizzes</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">📊</span><span>Progress</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">🔖</span><span>Saved Lessons</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">⚙️</span><span>Settings</span>
+      </a>
+    </nav>
+    <div class="sidebar-bottom">
+      <a href="index.html" class="nav-item logout" onclick="event.preventDefault(); AUTH.logout()">
+        <span class="nav-icon">🚪</span><span>Log Out</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <button class="hamburger" onclick="toggleSidebar()" aria-label="Toggle menu">&#9776;</button>
+      <div class="topbar-search">
+        <input type="text" placeholder="Search subjects..." id="subjectSearch" oninput="filterSubjects()" />
+        <span class="search-icon">🔍</span>
+      </div>
+      <div class="topbar-right">
+        <div class="notif-btn">🔔</div>
+        <div class="avatar">JD</div>
+      </div>
+    </header>
+
+    <main class="content">
+      <div class="page-title-row">
+        <h1 class="page-title">My Subjects</h1>
+      </div>
+
+      <!-- Strand filter tabs -->
+      <div class="filter-tabs" id="filterTabs">
+        <button class="filter-tab active" onclick="setFilter('all', this)">All</button>
+        <button class="filter-tab" onclick="setFilter('core', this)">Core</button>
+        <button class="filter-tab" onclick="setFilter('stem', this)">STEM</button>
+        <button class="filter-tab" onclick="setFilter('humss', this)">HUMSS</button>
+        <button class="filter-tab" onclick="setFilter('abm', this)">ABM</button>
+        <button class="filter-tab" onclick="setFilter('tvl', this)">TVL</button>
+      </div>
+
+      <div class="subjects-grid" id="subjectsGrid"></div>
+    </main>
+  </div>
+
+  <script src="auth.js"></script>
+  <script src="lessons.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
