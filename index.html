@@ -296,7 +296,11 @@
       }
 
       // Success — small delay for feel, then redirect
-      setTimeout(() => { window.location.href = 'dashboard.html'; }, 300);
+      const session = AUTH.getSession();
+      const name = session ? session.firstName + ' ' + session.lastName : '';
+      // show a quick flash then go
+      btn.textContent = 'Account created! ✓';
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 600);
     });
 
     function socialAuth() {
